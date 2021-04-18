@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import logo from '../assets/images/logo.svg';
+import Cart from './Cart';
 
 const Navbar = () => {
   return (
@@ -16,6 +17,7 @@ const Navbar = () => {
           </span>
           <div className="cart-items">0</div>
         </div>
+        <Cart />
       </div>
     </nav>
   );
