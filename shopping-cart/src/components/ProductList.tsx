@@ -1,6 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import productOne from '../assets/images/product-1.jpeg';
+import Product from './Product';
 
 const ProductList = () => {
   return (
@@ -9,17 +7,7 @@ const ProductList = () => {
         <h2>our product</h2>
       </div>
       <div className="products-center">
-        <article className="product">
-          <div className="img-container">
-            <img className="product-img" src={productOne} alt="product one"/>
-            <button className="bag-btn" data-id="1">
-              <FontAwesomeIcon icon={faShoppingCart} />
-              add to bag
-            </button>
-          </div>
-          <h3>queen bed</h3>
-          <h4>$66</h4>
-        </article>
+        <Product />
       </div>
     </section>
   );
