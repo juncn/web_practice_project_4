@@ -1,10 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faWindowClose,
-  faChevronUp,
-  faChevronDown,
-} from '@fortawesome/free-solid-svg-icons';
-import productOne from '../assets/images/product-1.jpeg';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import CartItem from './CartItem';
 
 const Cart = () => {
   return (
@@ -16,19 +12,7 @@ const Cart = () => {
         <h2>your cart</h2>
         <div className="cart-content">
           {/* Cart Item */}
-          <div className="cart-item">
-            <img src={productOne} alt="product" />
-            <div>
-              <h4>queen bed</h4>
-              <h5>$66.00</h5>
-              <span className="remove-item">remove</span>
-            </div>
-            <div>
-              <FontAwesomeIcon icon={faChevronUp} />
-              <p className="item-amount">1</p>
-              <FontAwesomeIcon icon={faChevronDown} />
-            </div>
-          </div>
+          <CartItem />
           {/* End Cart Item */}
         </div>
         <div className="cart-footer">
