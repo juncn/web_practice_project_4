@@ -14,11 +14,11 @@ const Cart = () => {
     if (toggleCart) {
       toggleCart();
     }
-  }
+  };
 
   return (
-    <div className={`cart-overlay ${overlayClass}`}>
-      <div className={`cart ${cartClass}`}>
+    <div className={`cart-overlay ${overlayClass}`} onClick={closeCart}>
+      <div className={`cart ${cartClass}`} onClick={e => e.stopPropagation()}>
         <span className="close-cart" onClick={closeCart}>
           <FontAwesomeIcon icon={faWindowClose} />
         </span>
