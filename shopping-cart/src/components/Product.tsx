@@ -1,19 +1,29 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import productOne from '../assets/images/product-1.jpeg';
 
-const Product = () => {
+interface Props {
+  product: {
+    id: string;
+    title: string;
+    price: number;
+    url: string;
+  };
+};
+
+const Product = ({ product }: Props) => {
+  const { id, title, price, url } = product;
+
   return (
     <article className="product">
       <div className="img-container">
-        <img className="product-img" src={productOne} alt="product" />
-        <button className="bag-btn" data-id="1">
+        <img className="product-img" src={url} alt={title} />
+        <button className="bag-btn" data-id={id}>
           <FontAwesomeIcon icon={faShoppingCart} />
           add to bag
         </button>
       </div>
-      <h3>queen bed</h3>
-      <h4>$66</h4>
+      <h3>{title}</h3>
+      <h4>${price}</h4>
     </article>
   );
 };
