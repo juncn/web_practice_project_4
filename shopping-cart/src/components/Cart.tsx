@@ -1,12 +1,25 @@
+import { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import CartItem from './CartItem';
+import { ProductsContext } from '../context';
 
 const Cart = () => {
+  const { isCartOpen, toggleCart } = useContext(ProductsContext);
+
+  const overlayClass = isCartOpen ? 'transparentBcg' : '';
+  const cartClass = isCartOpen ? 'showCart' : '';
+
+  const closeCart = () => {
+    if (toggleCart) {
+      toggleCart();
+    }
+  }
+
   return (
-    <div className="cart-overlay">
-      <div className="cart">
-        <span className="close-cart">
+    <div className={`cart-overlay ${overlayClass}`}>
+      <div className={`cart ${cartClass}`}>
+        <span className="close-cart" onClick={closeCart}>
           <FontAwesomeIcon icon={faWindowClose} />
         </span>
         <h2>your cart</h2>

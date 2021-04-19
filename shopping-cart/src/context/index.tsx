@@ -4,10 +4,12 @@ import { ProductList } from '../types';
 
 interface Props {
   children: React.ReactNode;
-};
+}
 
 interface ContextProps {
   products: ProductList;
+  isCartOpen: boolean;
+  toggleCart: () => void;
 }
 
 const ProductsContext = createContext<Partial<ContextProps>>({});
@@ -15,9 +17,14 @@ const ProductsContext = createContext<Partial<ContextProps>>({});
 const ProductsProvider = ({ children }: Props) => {
   // eslint-disable-next-line
   const [products, setProducts] = useState(productList);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
 
   return (
-    <ProductsContext.Provider value={{products}}>
+    <ProductsContext.Provider value={{ products, isCartOpen, toggleCart }}>
       {children}
     </ProductsContext.Provider>
   );
