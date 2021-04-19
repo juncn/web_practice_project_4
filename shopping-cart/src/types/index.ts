@@ -13,8 +13,8 @@ interface Product {
   }
 }
 
-interface ProductList {
-  items: Product[];
+interface CartItem extends Product {
+  count: number;
 }
 
-export type { ProductList };
+export type { Product, CartItem };

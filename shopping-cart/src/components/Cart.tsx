@@ -5,7 +5,7 @@ import CartItem from './CartItem';
 import { ProductsContext } from '../context';
 
 const Cart = () => {
-  const { isCartOpen, toggleCart } = useContext(ProductsContext);
+  const { isCartOpen, toggleCart, cartItem } = useContext(ProductsContext);
 
   const overlayClass = isCartOpen ? 'transparentBcg' : '';
   const cartClass = isCartOpen ? 'showCart' : '';
@@ -25,7 +25,7 @@ const Cart = () => {
         <h2>your cart</h2>
         <div className="cart-content">
           {/* Cart Item */}
-          <CartItem />
+          {cartItem?.map(item => <CartItem key={item.sys.id} item={item} />)}
           {/* End Cart Item */}
         </div>
         <div className="cart-footer">

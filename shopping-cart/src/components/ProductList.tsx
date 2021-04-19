@@ -12,7 +12,7 @@ interface ProductInfo {
 const ProductList = () => {
   const { products } = useContext(ProductsContext);
   
-  const productList = products && products.items.map(product => {
+  const productList = products && products.map(product => {
     const productInfo: ProductInfo = {
       id: product.sys.id,
       title: product.fields.title,
