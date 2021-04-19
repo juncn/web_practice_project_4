@@ -10,8 +10,10 @@ interface ContextProps {
   products: Product[];
   cartItem: CartItem[];
   cartCount: number;
+  totalPrice: number;
   isCartOpen: boolean;
   toggleCart: () => void;
+  clearCart: () => void;
 }
 
 const mockData = [
@@ -44,23 +46,54 @@ const ProductsProvider = ({ children }: Props) => {
   const [cartItem, setCartItem] = useState(mockData);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
   };
 
-  const calculateCartCount = () => {
-    const totalCount = cartItem
-      .map(item => item.count)
-      .reduce((acc, cur) => acc + cur);
-    setCartCount(totalCount);
+  const clearCart = () => {
+    setCartItem([]);
   };
 
-  useEffect(calculateCartCount, [cartItem]);
+  useEffect(() => {
+    const calculateTotalPrice = () => {
+      if (cartItem.length > 0) {
+        const totalPrice = cartItem
+          .map(item => item.count * item.fields.price)
+          .reduce((acc, cur) => acc + cur);
+        setTotalPrice(totalPrice);
+      } else {
+        setTotalPrice(0);
+      }
+    };
+
+    const calculateCartCount = () => {
+      if (cartItem.length > 0) {
+        const totalCount = cartItem
+          .map(item => item.count)
+          .reduce((acc, cur) => acc + cur);
+        setCartCount(totalCount);
+      } else {
+        setCartCount(0);
+      }
+    };
+
+    calculateCartCount();
+    calculateTotalPrice();
+  }, [cartItem]);
 
   return (
     <ProductsContext.Provider
-      value={{ products, isCartOpen, toggleCart, cartItem, cartCount }}
+      value={{
+        products,
+        isCartOpen,
+        cartItem,
+        cartCount,
+        totalPrice,
+        toggleCart,
+        clearCart,
+      }}
     >
       {children}
     </ProductsContext.Provider>
