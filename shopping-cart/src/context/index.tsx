@@ -19,33 +19,13 @@ interface ContextProps {
   addToCart: (item: CartItem) => void;
 }
 
-const mockData = [
-  {
-    sys: { id: '1' },
-    fields: {
-      title: 'queen panel bed',
-      price: 10.99,
-      image: { fields: { file: { url: './images/product-1.jpeg' } } },
-    },
-    count: 1,
-  },
-  {
-    sys: { id: '2' },
-    fields: {
-      title: 'king panel bed',
-      price: 12.99,
-      image: { fields: { file: { url: './images/product-2.jpeg' } } },
-    },
-    count: 2,
-  },
-];
-
 const ProductsContext = createContext<Partial<ContextProps>>({});
 
 const ProductsProvider = ({ children }: Props) => {
-  // eslint-disable-next-line
-  const [products, setProducts] = useState(productList.items);
-  const [cartItem, setCartItem] = useState(mockData);
+  const initCartItem: CartItem[] = [];
+  const products: Product[] = productList.items;
+
+  const [cartItem, setCartItem] = useState(initCartItem);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
