@@ -14,6 +14,8 @@ interface ContextProps {
   isCartOpen: boolean;
   toggleCart: () => void;
   clearCart: () => void;
+  incrementCartItemCount: (id: string) => void;
+  decrementCartItemCount: (id: string) => void;
 }
 
 const mockData = [
@@ -56,6 +58,22 @@ const ProductsProvider = ({ children }: Props) => {
     setCartItem([]);
   };
 
+  const incrementCartItemCount = (id: string) => {
+    const newCartItem = cartItem.map(item => {
+      return item.sys.id === id ? { ...item, count: item.count += 1 } : item;
+    });
+    setCartItem(newCartItem);
+  };
+
+  const decrementCartItemCount = (id: string) => {
+    const newCartItem = cartItem.map(item => {
+      return item.sys.id === id && item.count > 0
+        ? { ...item, count: item.count -= 1 }
+        : item;
+    });
+    setCartItem(newCartItem);
+  };
+
   useEffect(() => {
     const calculateTotalPrice = () => {
       if (cartItem.length > 0) {
@@ -93,6 +111,8 @@ const ProductsProvider = ({ children }: Props) => {
         totalPrice,
         toggleCart,
         clearCart,
+        incrementCartItemCount,
+        decrementCartItemCount,
       }}
     >
       {children}
