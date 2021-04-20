@@ -9,7 +9,7 @@ interface Props {
 interface ContextProps {
   products: Product[];
   cartItem: CartItem[];
-  cartCount: number;
+  cartItemCount: number;
   totalPrice: number;
   isCartOpen: boolean;
   toggleCart: () => void;
@@ -27,7 +27,7 @@ const ProductsProvider = ({ children }: Props) => {
 
   const [cartItem, setCartItem] = useState(initCartItem);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
+  const [cartItemCount, setCartItemCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
   const toggleCart = () => {
@@ -77,9 +77,9 @@ const ProductsProvider = ({ children }: Props) => {
         const totalCount = cartItem
           .map(item => item.count)
           .reduce((acc, cur) => acc + cur);
-        setCartCount(totalCount);
+        setCartItemCount(totalCount);
       } else {
-        setCartCount(0);
+        setCartItemCount(0);
       }
     };
 
@@ -93,7 +93,7 @@ const ProductsProvider = ({ children }: Props) => {
         products,
         isCartOpen,
         cartItem,
-        cartCount,
+        cartItemCount,
         totalPrice,
         toggleCart,
         clearCart,

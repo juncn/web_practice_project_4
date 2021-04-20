@@ -6,7 +6,7 @@ import Cart from './Cart';
 import { ProductsContext } from '../context';
 
 const Navbar = () => {
-  const { toggleCart, cartCount } = useContext(ProductsContext);
+  const { toggleCart,cartItemCount } = useContext(ProductsContext);
 
   const openCart = () => {
     if (toggleCart) {
@@ -25,7 +25,7 @@ const Navbar = () => {
           <span className="nav-icon">
             <FontAwesomeIcon icon={faCartPlus} />
           </span>
-          <div className="cart-items">{cartCount}</div>
+          <div className="cart-items">{cartItemCount}</div>
         </div>
         <Cart />
       </div>
