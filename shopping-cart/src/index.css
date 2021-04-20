@@ -133,6 +133,11 @@ body {
 .bag-btn:hover {
   color: var(--mainWhite);
 }
+.bag-btn:disabled:hover {
+  background: var(--primaryColor);
+  color: var(--mainBlack);
+  cursor: not-allowed;
+}
 .fa-shopping-cart {
   margin-right: 0.5rem;
 }
