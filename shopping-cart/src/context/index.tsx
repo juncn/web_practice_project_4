@@ -16,6 +16,7 @@ interface ContextProps {
   clearCart: () => void;
   incrementCartItemCount: (id: string) => void;
   decrementCartItemCount: (id: string) => void;
+  addToCart: (item: CartItem) => void;
 }
 
 const mockData = [
@@ -44,7 +45,6 @@ const ProductsContext = createContext<Partial<ContextProps>>({});
 const ProductsProvider = ({ children }: Props) => {
   // eslint-disable-next-line
   const [products, setProducts] = useState(productList.items);
-  // eslint-disable-next-line
   const [cartItem, setCartItem] = useState(mockData);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
@@ -60,18 +60,24 @@ const ProductsProvider = ({ children }: Props) => {
 
   const incrementCartItemCount = (id: string) => {
     const newCartItem = cartItem.map(item => {
-      return item.sys.id === id ? { ...item, count: item.count += 1 } : item;
+      return item.sys.id === id ? { ...item, count: (item.count += 1) } : item;
     });
     setCartItem(newCartItem);
   };
 
   const decrementCartItemCount = (id: string) => {
-    const newCartItem = cartItem.map(item => {
-      return item.sys.id === id && item.count > 0
-        ? { ...item, count: item.count -= 1 }
-        : item;
-    }).filter(item => item.count > 0);
+    const newCartItem = cartItem
+      .map(item => {
+        return item.sys.id === id && item.count > 0
+          ? { ...item, count: (item.count -= 1) }
+          : item;
+      })
+      .filter(item => item.count > 0);
     setCartItem(newCartItem);
+  };
+
+  const addToCart = (item: CartItem) => {
+    setCartItem([...cartItem, item]);
   };
 
   useEffect(() => {
@@ -80,7 +86,7 @@ const ProductsProvider = ({ children }: Props) => {
         const totalPrice = cartItem
           .map(item => item.count * item.fields.price)
           .reduce((acc, cur) => acc + cur);
-        setTotalPrice(totalPrice);
+        setTotalPrice(parseFloat(totalPrice.toFixed(2)));
       } else {
         setTotalPrice(0);
       }
@@ -113,6 +119,7 @@ const ProductsProvider = ({ children }: Props) => {
         clearCart,
         incrementCartItemCount,
         decrementCartItemCount,
+        addToCart,
       }}
     >
       {children}
