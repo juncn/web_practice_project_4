@@ -70,7 +70,7 @@ const ProductsProvider = ({ children }: Props) => {
       return item.sys.id === id && item.count > 0
         ? { ...item, count: item.count -= 1 }
         : item;
-    });
+    }).filter(item => item.count > 0);
     setCartItem(newCartItem);
   };
 
